@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <label for="listFilter">Search:</label>
+    <input id="listFilter" name="listFilter" type="text" [(ngModel)]="listFilter">
+    <table class="table" *ngIf="games != null && games.length != null">
+        <thead class="thead-dark">
+            <tr>
+                <th>Game</th>
+                <th>Players</th>
+                <th>Result</th>
+                <th>PGN</th>
+                <th>Date</th>
+                <th>Prize</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let game of games">
+                <td (click)="toggleImage($index)">
+                    <img [src]="game.gameImgUrl" [style.width.px]="imgWidth" [style.height.px]="imgHeight" [hidden]="showImage === false">
+                </td>
+                <td>{{game.players}}</td>
+                <td>{{game.result}}</td>
+                <td><a [href]="game.pgnUrl" target="_blank"><i class="fa fa-download"></i></a></td>
+                <td>{{game.date | date: 'dd-MM-yyyy'}}</td>
+                <td>{{game.prize | currency: 'INR' : 'symbol' : '2.0'}}</td>
+                <td>{{game.rating}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
