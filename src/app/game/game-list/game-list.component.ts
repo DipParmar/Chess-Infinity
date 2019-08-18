@@ -4,7 +4,7 @@ import { IGame } from '../IGame';
 @Component({
   selector: 'ci-game-list',
   templateUrl: './game-list.component.html',
-  styleUrls: ['./game-list.component.sass']
+  styleUrls: ['./game-list.component.scss']
 })
 export class GameListComponent implements OnInit {
 
@@ -54,7 +54,7 @@ export class GameListComponent implements OnInit {
   ngOnInit() {
   }
 
-  toggleImage(index: number) {
+  toggleImage(index: number): void {
     this.showImage = !this.showImage;
   }
 
@@ -62,6 +62,10 @@ export class GameListComponent implements OnInit {
     filterBy = filterBy.toLocaleLowerCase();
     return this.games.filter((game: IGame) =>
     game.players.toLocaleLowerCase().indexOf(filterBy) !== -1);
+  }
+
+  onRatingClicked(message: string): void {
+    console.log(message);
   }
 
 }

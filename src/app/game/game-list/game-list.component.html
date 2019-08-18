@@ -23,7 +23,7 @@
                 <td><a [href]="game.pgnUrl" target="_blank"><i class="fa fa-download"></i></a></td>
                 <td>{{game.date | date: 'dd-MM-yyyy' | convertToSpace: '-'}}</td>
                 <td>{{game.prize | currency: 'INR' : 'symbol' : '2.0'}}</td>
-                <td>{{game.rating}}</td>
+                <td><ci-star [rating]="game.rating" (ratingClicked)="onRatingClicked($event)"></ci-star></td>
             </tr>
         </tbody>
     </table>
