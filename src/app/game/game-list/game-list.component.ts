@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IGame } from '../IGame';
 import { GameService } from '../game.service';
+import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'ci-game-list',
   templateUrl: './game-list.component.html',
   styleUrls: ['./game-list.component.scss']
 })
-export class GameListComponent implements OnInit {
+export class GameListComponent implements OnInit, OnDestroy {
 
   public componentTitle: string = 'Game List';
   public imgWidth: number = 50;
   public imgHeight: number = 50;
   public showImage: boolean = true;
   public filteredGames: IGame[] = [];
+  
   private _listFilter = '';
+  private games$: Subscription;
 
   get listFilter(): string {
     return this._listFilter;
@@ -31,8 +35,15 @@ export class GameListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.games = this.gameService.getGames();
-    this.filteredGames = this.games;
+    this.games$ = this.gameService.getGames().subscribe({
+      next: (games: IGame[]) => {
+        this.games = games;
+        this.filteredGames = this.games;
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    });
   }
 
   toggleImage(index: number): void {
@@ -42,11 +53,15 @@ export class GameListComponent implements OnInit {
   performFilter(filterBy: string): IGame[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.games.filter((game: IGame) =>
-    game.players.toLocaleLowerCase().indexOf(filterBy) !== -1);
+      game.players.toLocaleLowerCase().indexOf(filterBy) !== -1);
   }
 
   onRatingClicked(message: string): void {
     console.log(message);
+  }
+
+  ngOnDestroy() {
+    this.games$.unsubscribe();
   }
 
 }
