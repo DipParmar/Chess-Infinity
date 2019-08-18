@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IGame } from '../IGame';
 import { GameService } from '../game.service';
 import { Subscription } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'ci-game-list',
@@ -36,11 +35,11 @@ export class GameListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.games$ = this.gameService.getGames().subscribe({
-      next: (games: IGame[]) => {
+      next: (games) => {
         this.games = games;
         this.filteredGames = this.games;
       },
-      error: (error: HttpErrorResponse) => {
+      error: (error) => {
         console.log(error);
       }
     });
