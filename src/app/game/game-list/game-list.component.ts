@@ -10,21 +10,21 @@ import { Subscription } from 'rxjs';
 })
 export class GameListComponent implements OnInit, OnDestroy {
 
-  public componentTitle: string = 'Game List';
-  public imgWidth: number = 50;
-  public imgHeight: number = 50;
-  public showImage: boolean = true;
+  public componentTitle = 'Game List';
+  public imgWidth = 50;
+  public imgHeight = 50;
+  public showImage = true;
   public filteredGames: IGame[] = [];
-  
-  private _listFilter = '';
+
+  private listFilterData = '';
   private games$: Subscription;
 
   get listFilter(): string {
-    return this._listFilter;
+    return this.listFilterData;
   }
 
   set listFilter(value: string) {
-    this._listFilter = value;
+    this.listFilterData = value;
     this.filteredGames = this.listFilter ? this.performFilter(this.listFilter) : this.games;
   }
 
