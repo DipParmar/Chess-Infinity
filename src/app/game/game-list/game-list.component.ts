@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IGame } from '../IGame';
+import { GameService } from '../game.service';
 
 @Component({
   selector: 'ci-game-list',
@@ -13,8 +14,8 @@ export class GameListComponent implements OnInit {
   public imgHeight: number = 50;
   public showImage: boolean = true;
   public filteredGames: IGame[] = [];
-
   private _listFilter = '';
+
   get listFilter(): string {
     return this._listFilter;
   }
@@ -24,34 +25,14 @@ export class GameListComponent implements OnInit {
     this.filteredGames = this.listFilter ? this.performFilter(this.listFilter) : this.games;
   }
 
-  public games: IGame[] = [
-    {
-      'gameId': '1',
-      'gameImgUrl': './assets/img/game.gif',
-      'players': 'Dip - Mihir',
-      'result': '0 - 1',
-      'pgnUrl': 'not available',
-      'date': new Date(),
-      'prize': 50000,
-      'rating': 5
-    },
-    {
-      'gameId': '2',
-      'gameImgUrl': './assets/img/game.gif',
-      'players': 'Dip - Vivek',
-      'result': '1 - 0',
-      'pgnUrl': 'not available',
-      'date': new Date(),
-      'prize': 80000,
-      'rating': 3
-    }
-  ];
+  public games: IGame[] = [];
 
-  constructor() {
-    this.filteredGames = this.games;
+  constructor(private gameService: GameService) {
   }
 
   ngOnInit() {
+    this.games = this.gameService.getGames();
+    this.filteredGames = this.games;
   }
 
   toggleImage(index: number): void {
