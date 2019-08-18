@@ -1,0 +1,8 @@
+<div class="card" style="width:400px" *ngIf="game != null">
+    <img class="card-img-top" src="./assets/img/game.gif" alt="Card image">
+    <div class="card-body">
+      <h4 class="card-title">{{game.players}}</h4>
+      <p class="card-text"></p>
+      <a href="#" class="btn btn-primary" (click)='back()'>Back</a>
+    </div>
+  </div>
