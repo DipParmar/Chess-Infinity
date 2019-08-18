@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { IGame } from './IGame';
 import { Observable, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, map } from 'rxjs/operators';
+import { IncomingMessage } from 'http';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,13 @@ export class GameService {
 
   public getGames(): Observable<IGame[]> {
     return this.httpClient.get<IGame[]>(this.GAME_URL).pipe(
-      tap(game => {console.log(game);}),
+      tap(game => { console.log(game); }),
       catchError(this.handleError)
     );
+  }
+
+  public getGame(gameId): Observable<IGame> {
+    return this.getGames().pipe(map((games: IGame[]) => games.find(g => g.gameId === gameId)));
   }
 
   private handleError(err: HttpErrorResponse) {
