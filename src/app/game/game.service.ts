@@ -13,6 +13,7 @@ export class GameService {
   constructor(private httpClient: HttpClient) { }
 
   public getGames(): Observable<IGame[]> {
+    this.getGameData();
     return this.httpClient.get<IGame[]>(this.GAME_URL).pipe(
       tap(game => { console.log(game); }),
       catchError(this.handleError)
@@ -21,6 +22,12 @@ export class GameService {
 
   public getGame(gameId): Observable<IGame> {
     return this.getGames().pipe(map((games: IGame[]) => games.find(g => g.gameId === gameId)));
+  }
+
+  public getGameData(): void {
+    this.httpClient.get('http://localhost:3000/games').pipe(
+      tap(data => {console.log(data);})
+      ).subscribe();
   }
 
   private handleError(err: HttpErrorResponse) {
