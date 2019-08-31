@@ -5,15 +5,14 @@ import { RouterModule } from '@angular/router';
 
 import { SharedModule } from './shared/shared.module';
 import { GameModule } from './game/game.module';
+import { UserModule } from './user/user.module';
 
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 const routes = [{ path: 'welcome', component: WelcomeComponent },
-{ path: 'login', component: LoginComponent },
 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
 { path: '**', component: PageNotFoundComponent }];
 
@@ -21,7 +20,6 @@ const routes = [{ path: 'welcome', component: WelcomeComponent },
   declarations: [
     AppComponent,
     WelcomeComponent,
-    LoginComponent,
     PageNotFoundComponent
   ],
   imports: [
@@ -29,6 +27,7 @@ const routes = [{ path: 'welcome', component: WelcomeComponent },
     HttpClientModule,
     GameModule,
     SharedModule,
+    UserModule,
     RouterModule.forRoot(routes),
   ],
   providers: [],

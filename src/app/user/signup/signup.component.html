@@ -1,1 +1,69 @@
-<p>signup works!</p>
+<div class="signup-form_container container">
+    <form (ngSubmit)="signUp()" [formGroup]="userForm">
+        <ul>
+            <li class="form-group row">
+                <label for="firstName" class="col-form-label col-sm-2">First Name</label>
+                <div class="col-sm-10">
+                    <input type="text" id="firstName" class="form-control" placeholder="First Name"
+                        formControlName="firstName"
+                        autocomplete="off"
+                        required
+                        minlength="5"
+                        [ngClass]="{'is-invalid': (userForm.get('firstName').touched || userForm.get('firstName').dirty) && !userForm.get('firstName').valid }">
+                </div>
+            </li>
+
+            <li class="form-group row">
+                <label for="lastName" class="col-form-label col-sm-2">Last Name</label>
+                <div class="col-sm-10">
+                    <input type="text" id="lastName" class="form-control" placeholder="Last Name"
+                        formControlName="lastName"
+                        autocomplete="off"
+                        [ngClass]="{'is-invalid': (userForm.get('lastName').touched || userForm.get('lastName').dirty) && !userForm.get('lastName').valid }">
+                </div>
+            </li>
+
+            <li class="form-group row">
+                <label for="email" class="col-form-label col-sm-2">Email</label>
+                <div class="col-sm-10">
+                    <input type="text" id="email" class="form-control" placeholder="Email" formControlName="email"
+                    autocomplete="off"
+                        [ngClass]="{'is-invalid': (userForm.get('email').touched || userForm.get('email').dirty) && !userForm.get('email').valid }">
+                </div>
+            </li>
+
+            <li class="form-group row">
+                <label for="password" class="col-form-label col-sm-2">Password</label>
+                <div class="col-sm-10">
+                    <input type="password" id="password" class="form-control" placeholder="Password"
+                        formControlName="password"
+                        autocomplete="off"
+                        [ngClass]="{'is-invalid': (userForm.get('password').touched || userForm.get('password').dirty) && !userForm.get('firstName').valid }">
+                </div>
+            </li>
+
+            <li class="form-group row">
+                <label for="confirmPassword" class="col-form-label col-sm-2">Confirm Password</label>
+                <div class="col-sm-10">
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password"
+                        formControlName="confirmPassword"
+                        autocomplete="off"
+                        [ngClass]="{'is-invalid': (userForm.get('confirmPassword').touched || userForm.get('confirmPassword').dirty) && !userForm.get('confirmPassword').valid }">
+                </div>
+            </li>
+
+            <li class="form-group row">
+                <label for="sendMail" class="col-form-label col-sm-2">Send Mail</label>
+                <input type="checkbox" id="sendMail" formControlName="sendMail">
+            </li>
+
+            <li class="form-group">
+                <input type="submit" class="form-control btn btn-primary" [disabled]="!userForm.valid" value="Signup">
+            </li>
+        </ul>
+    </form>
+</div>
+Dirty: {{userForm.dirty}} <br />
+Touched: {{userForm.touched}} <br />
+Valid: {{userForm.valid}} <br />
+Value: {{userForm.value | json}}
