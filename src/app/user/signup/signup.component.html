@@ -5,8 +5,7 @@
                 <label for="firstName" class="col-form-label col-sm-2">First Name</label>
                 <div class="col-sm-10">
                     <input type="text" id="firstName" class="form-control" placeholder="First Name"
-                        formControlName="firstName"
-                        autocomplete="off"
+                        formControlName="firstName" autocomplete="off"
                         [ngClass]="{'is-invalid': (userForm.get('firstName').touched || userForm.get('firstName').dirty) && !userForm.get('firstName').valid }">
                 </div>
             </li>
@@ -15,8 +14,7 @@
                 <label for="lastName" class="col-form-label col-sm-2">Last Name</label>
                 <div class="col-sm-10">
                     <input type="text" id="lastName" class="form-control" placeholder="Last Name"
-                        formControlName="lastName"
-                        autocomplete="off"
+                        formControlName="lastName" autocomplete="off"
                         [ngClass]="{'is-invalid': (userForm.get('lastName').touched || userForm.get('lastName').dirty) && !userForm.get('lastName').valid }">
                 </div>
             </li>
@@ -25,28 +23,66 @@
                 <label for="email" class="col-form-label col-sm-2">Email</label>
                 <div class="col-sm-10">
                     <input type="text" id="email" class="form-control" placeholder="Email" formControlName="email"
-                    autocomplete="off"
+                        autocomplete="off"
                         [ngClass]="{'is-invalid': (userForm.get('email').touched || userForm.get('email').dirty) && !userForm.get('email').valid }">
                 </div>
             </li>
 
             <li class="form-group row">
-                <label for="password" class="col-form-label col-sm-2">Password</label>
+                <label for="phoneNumber" class="col-form-label col-sm-2">Phone Number</label>
                 <div class="col-sm-10">
-                    <input type="password" id="password" class="form-control" placeholder="Password"
-                        formControlName="password"
-                        autocomplete="off"
-                        [ngClass]="{'is-invalid': (userForm.get('password').touched || userForm.get('password').dirty) && !userForm.get('firstName').valid }">
+                    <input type="text" id="phoneNumber" class="form-control" placeholder="Phone Number"
+                        formControlName="phone" autocomplete="off"
+                        [ngClass]="{'is-invalid': (userForm.get('phone').touched || userForm.get('phone').dirty) && !userForm.get('phone').valid }">
+                </div>
+            </li>
+
+
+            <li class="form-group row">
+                <label class="col-form-label col-sm-2">Send Notifications</label>
+                <div class="col-sm-10">
+                    <div class="form-check form-check-inline">
+                        <label class="col-form-label">
+                            <input class="form-check-input" type="radio" value="email" formControlName="notification"> Email
+                        </label>
+                    </div>
+                    <div class=" form-check form-check-inline">
+                        <label class="col-form-label">
+                            <input class="form-check-input" type="radio" value="text" formControlName="notification"> Text
+                        </label>
+                    </div>
+                </div>
+            </li>
+
+            <li formGroupName="passwordGroup">
+                <div class="form-group row">
+                    <label for="password" class="col-form-label col-sm-2">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" id="password" class="form-control" placeholder="Password"
+                            formControlName="password" autocomplete="off"
+                            [ngClass]="{'is-invalid': passwordMessage}">
+                            <span class="invalid-feedback" *ngIf="passwordMessage">
+                                {{passwordMessage}}
+                            </span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="confirmPassword" class="col-form-label col-sm-2">Confirm Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password"
+                            formControlName="confirmPassword" autocomplete="off"
+                            [ngClass]="{'is-invalid': userForm.get('passwordGroup').errors || (userForm.get('passwordGroup.confirmPassword').touched || userForm.get('passwordGroup.confirmPassword').dirty) && !userForm.get('passwordGroup.confirmPassword').valid }">
+                    </div>
                 </div>
             </li>
 
             <li class="form-group row">
-                <label for="confirmPassword" class="col-form-label col-sm-2">Confirm Password</label>
+                <label for="rating" class="col-form-label col-sm-2">Rating</label>
                 <div class="col-sm-10">
-                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password"
-                        formControlName="confirmPassword"
-                        autocomplete="off"
-                        [ngClass]="{'is-invalid': (userForm.get('confirmPassword').touched || userForm.get('confirmPassword').dirty) && !userForm.get('confirmPassword').valid }">
+                    <input type="number" id="rating" class="form-control" placeholder="Rating" formControlName="rating"
+                        autocomplete="off" minlength="1" maxlength="5"
+                        [ngClass]="{'is-invalid': (userForm.get('rating').touched || userForm.get('rating').dirty) && !userForm.get('rating').valid }">
                 </div>
             </li>
 
@@ -60,7 +96,8 @@
             </li>
 
             <li class="form-group">
-                <input type="button" class="form-control btn btn btn-primary" value="Populate Data" (click)="populateData()">
+                <input type="button" class="form-control btn btn btn-primary" value="Populate Data"
+                    (click)="populateData()">
             </li>
         </ul>
     </form>
@@ -69,3 +106,4 @@ Dirty: {{userForm.dirty}} <br />
 Touched: {{userForm.touched}} <br />
 Valid: {{userForm.valid}} <br />
 Value: {{userForm.value | json}}
+Value: {{passwordGroup | json}}
