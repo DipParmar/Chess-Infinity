@@ -11,8 +11,14 @@ export class SignupComponent implements OnInit {
   public userForm: FormGroup;
   public user: User = new User();
 
+  /**
+   * 
+   */
   constructor() { }
 
+  /**
+   * 
+   */
   ngOnInit() {
     this.userForm = new FormGroup({
       firstName: new FormControl(),
@@ -20,12 +26,39 @@ export class SignupComponent implements OnInit {
       email: new FormControl(),
       password: new FormControl(),
       confirmPassword: new FormControl(),
-      sendMail: new FormControl(true)
+      sendMail: new FormControl(false)
     })
   }
 
-  signUp(){
+  /**
+   * 
+   */
+  signUp(): void {
     throw new Error("Not implemented yet");
+  }
+
+  /**
+   * 
+   */
+  populateData(): void {
+    this.userForm.setValue({
+      firstName: 'member',
+      lastName: 'new',
+      email: 'member.new@chessInfinity.com',
+      password: '123456789',
+      confirmPassword: '123456789',
+      sendMail: false
+    });
+    this.patchVal();
+  }
+
+  /**
+   * 
+   */
+  patchVal(): void {
+    this.userForm.patchValue({
+      sendMail: true
+    });
   }
 
 }
