@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { User } from '../user';
 
 @Component({
@@ -14,19 +14,19 @@ export class SignupComponent implements OnInit {
   /**
    * 
    */
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
 
   /**
    * 
    */
   ngOnInit() {
-    this.userForm = new FormGroup({
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-      email: new FormControl(),
-      password: new FormControl(),
-      confirmPassword: new FormControl(),
-      sendMail: new FormControl(false)
+    this.userForm = this.formBuilder.group({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      sendMail: true
     })
   }
 
