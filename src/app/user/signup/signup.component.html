@@ -7,8 +7,6 @@
                     <input type="text" id="firstName" class="form-control" placeholder="First Name"
                         formControlName="firstName"
                         autocomplete="off"
-                        required
-                        minlength="5"
                         [ngClass]="{'is-invalid': (userForm.get('firstName').touched || userForm.get('firstName').dirty) && !userForm.get('firstName').valid }">
                 </div>
             </li>

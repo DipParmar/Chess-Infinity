@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../user';
 
 @Component({
@@ -21,9 +21,9 @@ export class SignupComponent implements OnInit {
    */
   ngOnInit() {
     this.userForm = this.formBuilder.group({
-      firstName: '',
-      lastName: '',
-      email: '',
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
       password: '',
       confirmPassword: '',
       sendMail: true
@@ -49,13 +49,13 @@ export class SignupComponent implements OnInit {
       confirmPassword: '123456789',
       sendMail: false
     });
-    this.patchVal();
+    this.sendMail();
   }
 
   /**
    * 
    */
-  patchVal(): void {
+  sendMail(): void {
     this.userForm.patchValue({
       sendMail: true
     });
